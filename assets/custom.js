@@ -57,7 +57,7 @@
           io.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.15 });
+    }, { threshold: 0, rootMargin: '0px 0px -12% 0px' });
     revealEls.forEach(function (el) { io.observe(el); });
   }
 
@@ -482,5 +482,20 @@
     document.querySelectorAll('.hlt-nav.menu-open').forEach(function (nav) {
       if (!nav.contains(e.target)) nav.classList.remove('menu-open');
     });
+  });
+})();
+
+/* ============================================================
+   v0.9 — hero films fade in once genuinely playing (kills the
+   black→fog pop on load)
+   ============================================================ */
+(function () {
+  'use strict';
+  document.querySelectorAll('.hlt-hero__media video').forEach(function (v) {
+    function mark() { v.classList.add('is-playing'); }
+    v.addEventListener('playing', mark, { once: true });
+    if (v.readyState >= 2 && !v.paused) mark();
+    /* failsafe: never leave a hero permanently black */
+    setTimeout(mark, 2500);
   });
 })();

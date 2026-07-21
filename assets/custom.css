@@ -816,3 +816,7 @@ body[data-hlt-theme] { opacity: 1; transition: opacity 0.45s var(--hlt-ease); }
     transform-origin: 50% 44%;
   }
 }
+
+/* hero films fade in on first playing frame instead of popping */
+.hlt-hero__media video { opacity: 0; transition: opacity 0.9s var(--hlt-ease); }
+.hlt-hero__media video.is-playing { opacity: 1; }
