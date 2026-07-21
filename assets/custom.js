@@ -453,3 +453,34 @@
     open(a, a.getAttribute('href') === '#affiliates' ? 'affiliates' : 'contact');
   }, true);
 })();
+
+/* ============================================================
+   v0.8 — mobile hamburger: toggle injected into every .hlt-nav;
+   menu closes on any link tap or outside tap
+   ============================================================ */
+(function () {
+  'use strict';
+  document.querySelectorAll('.hlt-nav').forEach(function (nav) {
+    var links = nav.querySelector('.hlt-nav__links');
+    if (!links) return;
+    var btn = document.createElement('button');
+    btn.className = 'hlt-nav__toggle';
+    btn.setAttribute('aria-label', 'Menu');
+    btn.setAttribute('aria-expanded', 'false');
+    btn.innerHTML = '<span></span>';
+    nav.appendChild(btn);
+    btn.addEventListener('click', function () {
+      var open = nav.classList.toggle('menu-open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    links.addEventListener('click', function () {
+      nav.classList.remove('menu-open');
+      btn.setAttribute('aria-expanded', 'false');
+    });
+  });
+  document.addEventListener('click', function (e) {
+    document.querySelectorAll('.hlt-nav.menu-open').forEach(function (nav) {
+      if (!nav.contains(e.target)) nav.classList.remove('menu-open');
+    });
+  });
+})();

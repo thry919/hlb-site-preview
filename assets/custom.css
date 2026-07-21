@@ -732,3 +732,73 @@ section[id], header[id] { scroll-margin-top: 84px; }
   .hlt-contact.is-in .frag { animation: none; opacity: 1; }
   .hlt-contact__backdrop { transition: none; }
 }
+
+/* ============================================================
+   v0.8 — first-paint fade + mobile hamburger nav
+   ============================================================ */
+/* pages carry a critical inline `body{opacity:0}`; once this sheet
+   arrives the page fades in instead of flashing */
+body[data-hlt-theme] { opacity: 1; transition: opacity 0.45s var(--hlt-ease); }
+
+.hlt-nav__toggle {
+  display: none;
+  margin-inline-start: auto;
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--hlt-line);
+  border-radius: 10px;
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+}
+.hlt-nav__toggle span,
+.hlt-nav__toggle::before,
+.hlt-nav__toggle::after {
+  content: '';
+  position: absolute;
+  left: 11px;
+  right: 11px;
+  height: 2px;
+  background: #fff;
+  border-radius: 2px;
+  transition: transform 0.3s var(--hlt-ease), opacity 0.3s var(--hlt-ease), top 0.3s var(--hlt-ease);
+}
+.hlt-nav__toggle::before { top: 14px; }
+.hlt-nav__toggle span { top: 20px; }
+.hlt-nav__toggle::after { top: 26px; }
+.hlt-nav.menu-open .hlt-nav__toggle::before { top: 20px; transform: rotate(45deg); }
+.hlt-nav.menu-open .hlt-nav__toggle span { opacity: 0; }
+.hlt-nav.menu-open .hlt-nav__toggle::after { top: 20px; transform: rotate(-45deg); }
+
+@media (max-width: 780px) {
+  .hlt-nav__toggle { display: block; }
+  .hlt-nav .hlt-nav__links {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    transform: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 0.5rem 1.25rem 1.25rem;
+    background: color-mix(in srgb, var(--hlt-bg) 96%, transparent);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--hlt-line);
+    white-space: normal;
+    display: none;
+  }
+  .hlt-nav.menu-open .hlt-nav__links { display: flex; }
+  .hlt-nav .hlt-nav__links a {
+    padding: 0.9rem 0.25rem;
+    border-bottom: 1px solid var(--hlt-line);
+    font-size: 1rem;
+  }
+  .hlt-nav .hlt-nav__links a:last-child { border-bottom: 0; }
+  .hlt-nav .hlt-nav__links .hlt-btn {
+    justify-content: center;
+    margin-top: 0.9rem;
+    border-bottom: 0;
+  }
+}
