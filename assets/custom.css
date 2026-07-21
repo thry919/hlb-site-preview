@@ -802,3 +802,17 @@ body[data-hlt-theme] { opacity: 1; transition: opacity 0.45s var(--hlt-ease); }
     border-bottom: 0;
   }
 }
+
+/* ============================================================
+   v0.9 — mobile framing: the 16:9 films compose their subject
+   for landscape; on portrait phones, zoom them in
+   ============================================================ */
+@media (max-width: 780px) {
+  /* home: logo-build overlay large enough to read */
+  .hlt-brand-video { width: 185%; max-width: none; top: 36%; }
+  /* media: hoop-energy header punched in */
+  .fr-hero .hlt-hero__media video {
+    transform: scale(1.7);
+    transform-origin: 50% 44%;
+  }
+}
