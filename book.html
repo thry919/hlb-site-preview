@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Book a Session — High Level Basketball</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,400;1,8..60,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/custom.css">
+  <style>
+    * { margin: 0; box-sizing: border-box; }
+    body { -webkit-font-smoothing: antialiased; }
+    .wrap { max-width: 1100px; margin-inline: auto; padding-inline: clamp(1.25rem, 4vw, 2rem); }
+    .muted { color: var(--hlt-ink-dim); line-height: 1.65; }
+    .book-grid { display: grid; gap: clamp(2rem, 5vw, 4rem); grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); align-items: start; }
+    .program-pick { display: grid; gap: .75rem; }
+    .pick {
+      display: flex; align-items: center; gap: 1rem;
+      background: var(--hlt-surface); border: 1px solid var(--hlt-line);
+      border-radius: 12px; padding: 1.1rem 1.25rem; cursor: pointer;
+      transition: border-color var(--hlt-dur) var(--hlt-ease), transform var(--hlt-dur) var(--hlt-ease);
+    }
+    .pick:hover { transform: translateY(-2px); }
+    .pick input { accent-color: var(--hlt-accent); width: 18px; height: 18px; }
+    .pick input:checked + div strong { color: var(--hlt-accent); }
+    .pick:has(input:checked) { border-color: var(--hlt-accent); }
+    .pick strong { display: block; font-family: var(--hlt-font-display); letter-spacing: .04em; text-transform: uppercase; font-size: 1rem; }
+    .pick span { font-size: .82rem; color: var(--hlt-ink-dim); }
+    form.booking { display: grid; gap: 1.15rem; }
+    .field-row { display: grid; gap: 1.15rem; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+    .free-note {
+      border: 1px dashed var(--hlt-accent); border-radius: 12px; padding: 1.1rem 1.25rem;
+      font-size: .9rem; color: var(--hlt-ink);
+    }
+  </style>
+</head>
+<body data-hlt-theme="dark">
+
+  <nav class="hlt-nav">
+    <a class="hlt-nav__logo" href="index.html"><img src="assets/hlb-logo-mono-white.svg" alt="High Level Basketball"></a>
+    <div class="hlt-nav__links">
+      <a href="index.html">Home</a>
+      <a href="index.html#coach">Coach Mich</a>
+      <a href="index.html#programs">Programs</a>
+      <a href="film-room.html">Media</a>
+      <a class="hlt-btn" href="book.html" aria-current="page" style="padding:.65em 1.4em">Book a Session</a>
+    </div>
+  </nav>
+
+  <header class="hlt-section--tight wrap" style="padding-top:clamp(3rem,7vw,5rem)">
+    <p class="hlt-eyebrow" style="margin-bottom:.75rem" data-hlt-reveal>Ready to work?</p>
+    <h1 class="hlt-display" style="font-size:clamp(2.5rem,7vw,5rem)" data-hlt-reveal>Book your<br><span style="color:var(--hlt-accent)">session.</span></h1>
+  </header>
+
+  <main class="hlt-section--tight wrap" style="padding-bottom:clamp(4rem,9vw,7rem)">
+    <div class="book-grid">
+      <!-- Step 1: pick a program -->
+      <section data-hlt-reveal>
+        <p class="hlt-eyebrow" style="margin-bottom:1.25rem">1 · Choose your format</p>
+        <div class="program-pick" role="radiogroup" aria-label="Program">
+          <label class="pick"><input type="radio" name="program" value="assessment" checked>
+            <div><strong>Free Skills Assessment</strong><span>15 minutes · honest evaluation · program recommendation</span></div>
+          </label>
+          <label class="pick"><input type="radio" name="program" value="middle-school">
+            <div><strong>Middle School Development</strong><span>Fundamentals &amp; confidence</span></div>
+          </label>
+          <label class="pick"><input type="radio" name="program" value="high-school">
+            <div><strong>High School Elite Training</strong><span>Advanced skill work &amp; game application</span></div>
+          </label>
+          <label class="pick"><input type="radio" name="program" value="small-group">
+            <div><strong>Small Group Training</strong><span>Max 4 athletes per session</span></div>
+          </label>
+          <label class="pick"><input type="radio" name="program" value="private">
+            <div><strong>Private Training</strong><span>1-on-1 with Coach Mich · custom roadmap</span></div>
+          </label>
+        </div>
+        <div class="free-note" style="margin-top:1.25rem">
+          <strong style="color:var(--hlt-accent)">Not sure where to start?</strong>
+          Keep the free assessment selected — Coach Mich will evaluate your athlete honestly and recommend the right program.
+        </div>
+      </section>
+
+      <!-- Step 2: details -->
+      <section data-hlt-reveal>
+        <p class="hlt-eyebrow" style="margin-bottom:1.25rem">2 · Your details</p>
+        <form class="booking" onsubmit="return false">
+          <div class="field-row">
+            <div class="hlt-field"><label for="b-parent">Parent / Guardian</label><input id="b-parent" type="text" autocomplete="name" placeholder="Full name"></div>
+            <div class="hlt-field"><label for="b-athlete">Athlete name</label><input id="b-athlete" type="text" placeholder="Full name"></div>
+          </div>
+          <div class="field-row">
+            <div class="hlt-field"><label for="b-grade">Grade / Age</label><input id="b-grade" type="text" placeholder="e.g. 8th grade"></div>
+            <div class="hlt-field"><label for="b-area">Area</label>
+              <select id="b-area">
+                <option>Raleigh</option><option>Cary</option><option>Apex</option><option>Wake Forest</option><option>Other Wake County</option>
+              </select>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="hlt-field"><label for="b-email">Email</label><input id="b-email" type="email" autocomplete="email" placeholder="you@email.com"></div>
+            <div class="hlt-field"><label for="b-phone">Phone</label><input id="b-phone" type="tel" autocomplete="tel" placeholder="(919) 555-0100"></div>
+          </div>
+          <div class="hlt-field"><label for="b-goals">What should Coach Mich know?</label><textarea id="b-goals" rows="4" placeholder="Position, goals, current level, anything else…"></textarea></div>
+          <button class="hlt-btn" type="submit" style="justify-self:start">Request Session</button>
+          <p class="muted" style="font-size:.8rem">Coach Mich personally reviews every request and replies within 24 hours with available times.</p>
+        </form>
+      </section>
+    </div>
+  </main>
+
+  <footer class="hlt-footer">
+    <p class="hlt-footer__wordmark" aria-hidden="true">High Level Basketball</p>
+  </footer>
+
+  <script src="assets/custom.js"></script>
+</body>
+</html>

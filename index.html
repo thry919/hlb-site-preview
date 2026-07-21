@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>High Level Basketball — Player Development in Wake County, NC</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,400;1,8..60,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/custom.css">
+  <style>
+    * { margin: 0; box-sizing: border-box; }
+    body { -webkit-font-smoothing: antialiased; }
+    .wrap { max-width: 1200px; margin-inline: auto; padding-inline: clamp(1.25rem, 4vw, 2rem); }
+    .muted { color: var(--hlt-ink-dim); line-height: 1.65; }
+    .grid-2 { display: grid; gap: clamp(2rem, 5vw, 4rem); grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); align-items: center; }
+    .card-thumb { aspect-ratio: 16/10; overflow: hidden; }
+    .card-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 600ms var(--hlt-ease); }
+    .hlt-card:hover .card-thumb img { transform: scale(1.04); }
+    .card-body { padding: 1.4rem; display: grid; gap: .85rem; justify-items: start; }
+    .card-body h3 { font-family: var(--hlt-font-display); font-size: 1.35rem; letter-spacing: .03em; text-transform: uppercase; }
+    .testimonials { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+    .t-card { background: var(--hlt-surface); border: 1px solid var(--hlt-line); border-radius: 14px; padding: 2rem; display: grid; gap: 1.25rem; align-content: start; }
+    .t-card cite { font-style: normal; }
+    .t-card cite strong { display: block; font-size: .9rem; }
+    .t-card cite span { font-size: .8rem; color: var(--hlt-ink-dim); }
+    .cta-band { background: linear-gradient(120deg, var(--hlt-blue-dark), var(--hlt-blue)); text-align: center; }
+    .hero-logo { width: clamp(72px, 9vw, 110px); margin-bottom: 1.5rem; }
+    .hero-loc { display: flex; align-items: center; gap: .5em; }
+    .hero-loc::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--hlt-accent); }
+    /* Coach: text column starts at the top edge of the photo */
+    #coach .grid-2 { align-items: start; }
+    /* Programs: equal-height cards, CTA pinned to bottom so all
+       "Book This Program" buttons sit on the same line per row */
+    #programs .hlt-card { display: flex; flex-direction: column; }
+    #programs .card-body { flex: 1; display: flex; flex-direction: column; align-items: flex-start; gap: .85rem; }
+    #programs .card-body .hlt-btn { margin-top: auto; }
+    /* Results fold-in: alumni wall + path (from the retired Results page) */
+    .alumni-grid { display: grid; gap: 1px; background: var(--hlt-line); border: 1px solid var(--hlt-line); border-radius: 14px; overflow: hidden; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+    .alum { background: var(--hlt-bg); padding: 1.6rem 1.5rem; display: grid; gap: .35rem; transition: background var(--hlt-dur) var(--hlt-ease); }
+    .alum:hover { background: var(--hlt-surface); }
+    .alum strong { font-family: var(--hlt-font-display); font-size: 1.25rem; letter-spacing: .03em; text-transform: uppercase; }
+    .alum .league { font-size: .68rem; font-weight: 600; letter-spacing: .18em; color: var(--hlt-accent); }
+    .alum.d1 .league, .alum.pro .league { color: var(--hlt-ink-dim); }
+    a.alum-cta { text-decoration: none; color: inherit; background: var(--hlt-accent); }
+    a.alum-cta:hover { background: var(--hlt-accent); filter: brightness(1.08); }
+    a.alum-cta strong { color: #fff; }
+    a.alum-cta .league { color: rgba(255,255,255,.85); }
+  </style>
+</head>
+<body data-hlt-theme="dark">
+
+  <nav class="hlt-nav">
+    <a class="hlt-nav__logo" href="index.html"><img src="assets/hlb-logo-mono-white.svg" alt="High Level Basketball"></a>
+    <div class="hlt-nav__links">
+      <a href="index.html" aria-current="page">Home</a>
+      <a href="#coach">Coach Mich</a>
+      <a href="#programs">Programs</a>
+      <a href="film-room.html">Media</a>
+      <a class="hlt-btn" href="book.html" style="padding:.65em 1.4em">Book a Session</a>
+    </div>
+  </nav>
+
+  <!-- HERO — fog film + fragment logo-build overlay + CSS text sequence.
+       (The one-film cinematic take is archived at assets/video/hero-sequence.mp4;
+       its hoop-energy moment is earmarked for reuse.) -->
+  <header class="hlt-hero" id="hero">
+    <div class="hlt-hero__media">
+      <video autoplay muted playsinline poster="assets/img/hlb-photo-1.jpg">
+        <source src="assets/hero-loop.mp4" type="video/mp4">
+      </video>
+    </div>
+    <video class="hlt-brand-video" autoplay muted playsinline aria-hidden="true">
+      <source src="assets/logo-build.mp4" type="video/mp4">
+    </video>
+    <div data-hlt-scrollseq>
+      <h1 class="hlt-display" style="font-size:clamp(2.5rem,7vw,5rem)">
+        <span class="hlt-seq" data-hlt-step="1">Develop players.</span><br>
+        <span data-hlt-step="1" data-hlt-build="0.55" data-hlt-build-step="0.07">Build confidence.</span><br>
+        <span class="hlt-seq" data-hlt-step="1" style="color:var(--hlt-accent); animation-delay:1.7s"><span class="hlt-earn" style="animation-delay:2.5s">Earn</span> results.</span>
+      </h1>
+      <div class="hlt-seq" data-hlt-step="1" style="display:flex; gap:1rem; margin-top:2.25rem; flex-wrap:wrap; animation-delay:2.9s">
+        <a class="hlt-btn" href="book.html">Book a Session</a>
+        <a class="hlt-btn hlt-btn--ghost" href="#programs">Explore Programs</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ALUMNI MARQUEE -->
+  <div class="hlt-marquee" aria-label="Alumni">
+    <div class="hlt-marquee__track">
+      <span class="hlt-marquee__item">TJ Warren<small>NBA</small></span>
+      <span class="hlt-marquee__item">Cody Martin<small>NBA</small></span>
+      <span class="hlt-marquee__item">Gary Clark<small>NBA</small></span>
+      <span class="hlt-marquee__item">Azurá Stevens<small>WNBA</small></span>
+      <span class="hlt-marquee__item">Jordan Nwora<small>NBA</small></span>
+      <span class="hlt-marquee__item">Bruno Caboclo<small>NBA</small></span>
+      <span class="hlt-marquee__item">Terry Henderson<small>PRO</small></span>
+      <span class="hlt-marquee__item">Dez Wells<small>D1</small></span>
+      <span class="hlt-marquee__item">Cedric Simmons<small>NBA</small></span>
+    </div>
+    <div class="hlt-marquee__track" aria-hidden="true">
+      <span class="hlt-marquee__item">TJ Warren<small>NBA</small></span>
+      <span class="hlt-marquee__item">Cody Martin<small>NBA</small></span>
+      <span class="hlt-marquee__item">Gary Clark<small>NBA</small></span>
+      <span class="hlt-marquee__item">Azurá Stevens<small>WNBA</small></span>
+      <span class="hlt-marquee__item">Jordan Nwora<small>NBA</small></span>
+      <span class="hlt-marquee__item">Bruno Caboclo<small>NBA</small></span>
+      <span class="hlt-marquee__item">Terry Henderson<small>PRO</small></span>
+      <span class="hlt-marquee__item">Dez Wells<small>D1</small></span>
+      <span class="hlt-marquee__item">Cedric Simmons<small>NBA</small></span>
+    </div>
+  </div>
+
+  <!-- WHAT WE TRAIN -->
+  <section class="hlt-section wrap" data-hlt-reveal style="padding-top:clamp(3.36rem,7.56vw,6.72rem); padding-bottom:clamp(1.68rem,3.78vw,3.36rem)">
+    <p class="hlt-eyebrow" style="margin-bottom:.75rem">The work</p>
+    <h2 class="hlt-display" style="font-size:clamp(2rem,5vw,3.5rem); margin-bottom:2.5rem">What we train</h2>
+    <div class="hlt-cards">
+      <article class="hlt-card">
+        <div class="card-thumb"><img src="assets/img/hlb-photo-4.jpg" alt=""></div>
+        <div class="card-body">
+          <span class="hlt-card__tag">Foundation</span>
+          <h3>Skill Development</h3>
+          <p class="muted" style="font-size:.92rem">Footwork, finishing, and the foundational movements that separate good players from great ones.</p>
+        </div>
+      </article>
+      <article class="hlt-card">
+        <div class="card-thumb"><img src="assets/img/hlb-photo-2.jpg" alt=""></div>
+        <div class="card-body">
+          <span class="hlt-card__tag">Craft</span>
+          <h3>Shooting &amp; Ball Handling</h3>
+          <p class="muted" style="font-size:.92rem">Mechanics, repetition, and game-speed application — from catch-and-shoot to off-the-dribble.</p>
+        </div>
+      </article>
+      <article class="hlt-card">
+        <div class="card-thumb"><img src="assets/img/hlb-photo-7.jpg" alt=""></div>
+        <div class="card-body">
+          <span class="hlt-card__tag">Mind + Motor</span>
+          <h3>Game IQ &amp; Conditioning</h3>
+          <p class="muted" style="font-size:.92rem">Read the defense, make the right play, and have the conditioning to execute when it matters.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- COACH -->
+  <section id="coach" class="hlt-section wrap" data-hlt-reveal style="padding-top:clamp(1.68rem,3.78vw,3.36rem); padding-bottom:clamp(1rem,2.25vw,2rem)">
+    <div class="grid-2">
+      <div class="hlt-duotone" style="aspect-ratio:4/3">
+        <img src="assets/img/hlb-photo-6.jpg" alt="Coach Mich Massogo coaching a group session">
+      </div>
+      <div>
+        <p class="hlt-eyebrow" style="margin-bottom:.75rem">The coach behind the work</p>
+        <h2 class="hlt-display" style="font-size:clamp(2rem,5vw,3.5rem)">Coach Mich<br>Massogo</h2>
+        <p class="hlt-quote" style="margin:1.5rem 0">Every athlete has another level. My job is to get them there.</p>
+        <p class="muted">10+ years developing athletes from beginners through NBA and WNBA professionals. Former program director at HoopCityU in Durham. International camps in Brazil, St. Kitts &amp; Nevis, and Anguilla.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROOF BAR -->
+  <section class="hlt-section wrap" data-hlt-reveal style="padding-top:clamp(1rem,2.25vw,2rem)">
+    <div class="hlt-stats">
+      <div class="hlt-stat">
+        <p class="hlt-stat__label">Years developing athletes</p>
+        <p class="hlt-stat__value"><span data-hlt-count="10" data-hlt-suffix="+">0</span></p>
+      </div>
+      <div class="hlt-stat">
+        <p class="hlt-stat__label">NBA &amp; WNBA clients</p>
+        <p class="hlt-stat__value"><span data-hlt-count="9">0</span></p>
+      </div>
+      <div class="hlt-stat">
+        <p class="hlt-stat__label">Countries — international camps</p>
+        <p class="hlt-stat__value"><span data-hlt-count="4">0</span></p>
+      </div>
+      <div class="hlt-stat">
+        <p class="hlt-stat__label">AAU program partners</p>
+        <p class="hlt-stat__value"><span data-hlt-count="5" data-hlt-suffix="+">0</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRAMS -->
+  <section id="programs" class="hlt-section hlt-paper">
+    <div class="wrap" data-hlt-reveal>
+      <p class="hlt-eyebrow" style="margin-bottom:.75rem">Training options</p>
+      <h2 class="hlt-display" style="font-size:clamp(2rem,5vw,3.5rem); color:var(--hlt-blue); margin-bottom:2.5rem">Choose your program</h2>
+      <div class="hlt-cards" style="grid-template-columns:repeat(auto-fill,minmax(250px,1fr))">
+        <article class="hlt-card">
+          <div class="card-body">
+            <span class="hlt-card__tag">Middle School</span>
+            <h3 style="color:var(--hlt-blue)">Development</h3>
+            <p class="muted" style="font-size:.9rem">Building fundamentals and confidence.</p>
+            <ul class="hlt-list" style="color:#211d1f; font-size:.85rem">
+              <li>Core skill fundamentals</li>
+              <li>Shooting mechanics</li>
+              <li>Confidence &amp; competition</li>
+            </ul>
+            <a class="hlt-btn" href="book.html" style="font-size:.85rem">Book This Program</a>
+          </div>
+        </article>
+        <article class="hlt-card">
+          <div class="card-body">
+            <span class="hlt-card__tag">High School</span>
+            <h3 style="color:var(--hlt-blue)">Elite Training</h3>
+            <p class="muted" style="font-size:.9rem">Advanced skill work and game application.</p>
+            <ul class="hlt-list" style="color:#211d1f; font-size:.85rem">
+              <li>Advanced skill development</li>
+              <li>Game film &amp; IQ training</li>
+              <li>College recruitment prep</li>
+            </ul>
+            <a class="hlt-btn" href="book.html" style="font-size:.85rem">Book This Program</a>
+          </div>
+        </article>
+        <article class="hlt-card">
+          <div class="card-body">
+            <span class="hlt-card__tag">Small Group</span>
+            <h3 style="color:var(--hlt-blue)">Group Training</h3>
+            <p class="muted" style="font-size:.9rem">Limited athletes. Maximum attention.</p>
+            <ul class="hlt-list" style="color:#211d1f; font-size:.85rem">
+              <li>Max 4 athletes per session</li>
+              <li>Individualized coaching cues</li>
+              <li>Competitive environment</li>
+            </ul>
+            <a class="hlt-btn" href="book.html" style="font-size:.85rem">Book This Program</a>
+          </div>
+        </article>
+        <article class="hlt-card" style="border-color:var(--hlt-accent)">
+          <div class="card-body">
+            <span class="hlt-card__tag" style="background:var(--hlt-accent); color:#fff; border-color:var(--hlt-accent)">Most Personalized</span>
+            <h3 style="color:var(--hlt-blue)">Private Training</h3>
+            <p class="muted" style="font-size:.9rem">Customized player development plans.</p>
+            <ul class="hlt-list" style="color:#211d1f; font-size:.85rem">
+              <li>1-on-1 with Coach Mich</li>
+              <li>Custom development roadmap</li>
+              <li>Film review &amp; analysis</li>
+            </ul>
+            <a class="hlt-btn" href="book.html" style="font-size:.85rem">Book This Program</a>
+          </div>
+        </article>
+      </div>
+      <p class="muted" style="margin-top:2rem">Not sure which level fits? <a href="book.html" style="color:var(--hlt-accent); font-weight:600">Book a free 15-minute skills assessment.</a></p>
+    </div>
+  </section>
+
+  <!-- QUOTES -->
+  <section class="hlt-section wrap" data-hlt-reveal>
+    <h2 class="hlt-display" style="font-size:clamp(2rem,5vw,3.5rem); margin-bottom:2.5rem">Quotes<span style="color:var(--hlt-accent)">.</span></h2>
+    <div class="testimonials">
+      <figure class="t-card">
+        <blockquote class="hlt-quote" style="font-size:1.1rem">Coach Mich changed the way I see the game. The details he coaches are what got me to the next level.</blockquote>
+        <cite><strong>D1 Athlete</strong><span>High School Alumni</span></cite>
+      </figure>
+      <figure class="t-card">
+        <blockquote class="hlt-quote" style="font-size:1.1rem">My son's handles and shooting percentage improved dramatically in just one summer. Worth every session.</blockquote>
+        <cite><strong>Parent</strong><span>High School Player, Raleigh</span></cite>
+      </figure>
+      <figure class="t-card">
+        <blockquote class="hlt-quote" style="font-size:1.1rem">The best individual trainer in Wake County, period. His knowledge of the game is elite.</blockquote>
+        <cite><strong>AAU Coach</strong><span>Wake County Program</span></cite>
+      </figure>
+      <!-- PLACEHOLDER QUOTES below — swap for real testimonials before launch -->
+      <figure class="t-card">
+        <blockquote class="hlt-quote" style="font-size:1.1rem">He treats every rep like it matters. My daughter went from role player to starter in one season.</blockquote>
+        <cite><strong>Parent</strong><span>Middle School Player, Cary</span></cite>
+      </figure>
+      <figure class="t-card">
+        <blockquote class="hlt-quote" style="font-size:1.1rem">The film breakdowns changed everything. I finally understood what coaches were seeing on the floor.</blockquote>
+        <cite><strong>Varsity Guard</strong><span>Wake Forest HS</span></cite>
+      </figure>
+      <figure class="t-card">
+        <blockquote class="hlt-quote" style="font-size:1.1rem">Mich holds you accountable like a pro trainer — because he has trained pros.</blockquote>
+        <cite><strong>College Athlete</strong><span>Offseason Client</span></cite>
+      </figure>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="hlt-section cta-band">
+    <div class="wrap" data-hlt-reveal>
+      <h2 class="hlt-display" style="font-size:clamp(2.25rem,6vw,4.5rem)">Next Level<br>Starts Here</h2>
+      <a class="hlt-btn" href="book.html" style="margin-top:2rem">Book a Session</a>
+    </div>
+  </section>
+
+  <footer class="hlt-footer">
+    <div class="wrap hlt-section--tight" style="display:flex; justify-content:center; align-items:center">
+      <div class="hlt-nav__links" style="margin:0; white-space:nowrap">
+        <a href="#coach">About</a>
+        <a href="#programs">Programs</a>
+        <a href="book.html">Book</a>
+        <a href="#contact">Contact Me</a>
+        <a href="#affiliates">Affiliates</a>
+      </div>
+    </div>
+    <p class="hlt-footer__wordmark" aria-hidden="true">High Level Basketball</p>
+  </footer>
+
+  <script src="assets/custom.js"></script>
+</body>
+</html>

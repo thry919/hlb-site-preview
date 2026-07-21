@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Media — High Level Basketball</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,400;1,8..60,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/custom.css">
+  <style>
+    * { margin: 0; box-sizing: border-box; }
+    body { -webkit-font-smoothing: antialiased; }
+    .wrap { max-width: 1200px; margin-inline: auto; padding-inline: clamp(1.25rem, 4vw, 2rem); }
+    .muted { color: var(--hlt-ink-dim); line-height: 1.65; }
+    .fr-hero { min-height: 62svh; }
+    .featured { position: relative; border-radius: 14px; overflow: hidden; border: 1px solid var(--hlt-line); }
+    .featured video { display: block; width: 100%; }
+  </style>
+</head>
+<body data-hlt-theme="dark">
+
+  <nav class="hlt-nav">
+    <a class="hlt-nav__logo" href="index.html"><img src="assets/hlb-logo-mono-white.svg" alt="High Level Basketball"></a>
+    <div class="hlt-nav__links">
+      <a href="index.html">Home</a>
+      <a href="index.html#coach">Coach Mich</a>
+      <a href="index.html#programs">Programs</a>
+      <a href="film-room.html" aria-current="page">Media</a>
+      <a class="hlt-btn" href="book.html" style="padding:.65em 1.4em">Book a Session</a>
+    </div>
+  </nav>
+
+  <!-- HERO — the hoop-energy beat -->
+  <header class="hlt-hero fr-hero">
+    <div class="hlt-hero__media">
+      <video autoplay muted loop playsinline style="animation:none">
+        <source src="assets/filmroom-header.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div data-hlt-reveal>
+      <h1 class="hlt-display" style="font-size:clamp(2.5rem,7vw,5rem)">Media<span style="color:var(--hlt-accent)">.</span></h1>
+    </div>
+  </header>
+
+  <!-- FEATURED FILM -->
+  <section class="hlt-section--tight wrap" style="padding-top:clamp(2.5rem,5vw,4rem)" data-hlt-reveal>
+    <p class="hlt-eyebrow" style="margin-bottom:1.25rem">Featured film</p>
+    <div class="featured">
+      <video controls playsinline poster="assets/featured-poster.jpg" preload="none">
+        <source src="assets/featured-film.mp4" type="video/mp4">
+      </video>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="hlt-section wrap" data-hlt-reveal style="padding-bottom:clamp(1.6rem,3.6vw,3.2rem)">
+    <div style="display:flex; justify-content:space-between; align-items:end; gap:1.5rem; flex-wrap:wrap; margin-bottom:2rem">
+      <h2 class="hlt-display" style="font-size:clamp(1.75rem,4vw,2.75rem)">Inside the gym</h2>
+    </div>
+    <div class="hlt-gallery">
+      <figure class="hlt-gallery__item" data-cat="game"><img loading="lazy" src="assets/img/hlb-photo-9.jpg" alt="Game action"></figure>
+      <figure class="hlt-gallery__item" data-cat="camps"><img loading="lazy" src="assets/img/hlb-photo-4.jpg" alt="Camp session"></figure>
+      <figure class="hlt-gallery__item" data-cat="training"><img loading="lazy" src="assets/img/hlb-photo-2.jpg" alt="Cone drill"></figure>
+      <figure class="hlt-gallery__item" data-cat="camps"><img loading="lazy" src="assets/img/hlb-photo-6.jpg" alt="Coach Mich coaching"></figure>
+      <figure class="hlt-gallery__item" data-cat="game"><img loading="lazy" src="assets/img/hlb-photo-10.jpg" alt="Game action"></figure>
+      <figure class="hlt-gallery__item" data-cat="training"><img loading="lazy" src="assets/img/hlb-photo-3.jpg" alt="Ball handling drill"></figure>
+      <figure class="hlt-gallery__item" data-cat="camps"><img loading="lazy" src="assets/img/hlb-photo-7.jpg" alt="Group huddle"></figure>
+      <figure class="hlt-gallery__item" data-cat="game"><img loading="lazy" src="assets/img/hlb-photo-11.jpg" alt="Game action"></figure>
+      <figure class="hlt-gallery__item" data-cat="training"><img loading="lazy" src="assets/img/hlb-photo-12.jpg" alt="Training session"></figure>
+      <figure class="hlt-gallery__item" data-cat="camps"><img loading="lazy" src="assets/img/hlb-photo-5.jpg" alt="Camp huddle"></figure>
+      <figure class="hlt-gallery__item" data-cat="game"><img loading="lazy" src="assets/img/hlb-photo-13.jpg" alt="Game action"></figure>
+      <figure class="hlt-gallery__item" data-cat="training"><img loading="lazy" src="assets/img/hlb-photo-14.jpg" alt="Skill work"></figure>
+      <figure class="hlt-gallery__item" data-cat="camps"><img loading="lazy" src="assets/img/hlb-photo-8.jpg" alt="Coach instruction"></figure>
+      <figure class="hlt-gallery__item" data-cat="training"><img loading="lazy" src="assets/img/hlb-photo-15.jpg" alt="Training session"></figure>
+      <figure class="hlt-gallery__item" data-cat="game"><img loading="lazy" src="assets/img/hlb-photo-16.jpg" alt="Game action"></figure>
+      <figure class="hlt-gallery__item" data-cat="training"><img loading="lazy" src="assets/img/hlb-photo-17.jpg" alt="Skill work"></figure>
+      <figure class="hlt-gallery__item" data-cat="camps"><img loading="lazy" src="assets/img/hlb-photo-1.jpg" alt="Camp group"></figure>
+      <figure class="hlt-gallery__item" data-cat="game"><img loading="lazy" src="assets/img/hlb-photo-18.jpg" alt="Game action"></figure>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="hlt-section wrap" style="text-align:center; padding-top:clamp(1.6rem,3.6vw,3.2rem)" data-hlt-reveal>
+    <a class="hlt-btn" href="book.html">Book a Session</a>
+  </section>
+
+  <footer class="hlt-footer">
+    <p class="hlt-footer__wordmark" aria-hidden="true">High Level Basketball</p>
+  </footer>
+
+  <script src="assets/custom.js"></script>
+</body>
+</html>

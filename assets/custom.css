@@ -1,0 +1,734 @@
+/* ============================================================
+   HIGH LEVEL TRAINING — Design System (DUDA code injection)
+   Deploy: DUDA > Site Settings > Site HTML > HEAD (inside <style>)
+   Scope: all rules prefixed with .hlt- or targeting [data-hlt-*]
+   so DUDA editor chrome is never affected.
+   ============================================================ */
+
+:root {
+  /* Canvas — deepened from brand ink #211d1f */
+  --hlt-bg: #16131a;
+  --hlt-surface: #211d1f;
+  --hlt-surface-2: #2a2530;
+  --hlt-line: rgba(255, 255, 255, 0.08);
+
+  /* Ink */
+  --hlt-ink: #fafaf8;   /* brand paper */
+  --hlt-ink-dim: #a9a6a8; /* brand gray */
+
+  /* Brand accents (extracted from HLB logo + site tokens) */
+  --hlt-accent: #ed4a26;        /* orange — action */
+  --hlt-accent-ink: #fafaf8;
+  --hlt-blue: #2b328b;          /* royal blue — atmosphere */
+  --hlt-blue-dark: #1e2464;
+
+  /* Type — matches live site stack */
+  --hlt-font-display: 'Anton', 'Archivo', system-ui, sans-serif;
+  --hlt-font-body: 'Inter', system-ui, sans-serif;
+  --hlt-font-serif: 'Source Serif 4', Georgia, serif;
+
+  /* Motion */
+  --hlt-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --hlt-dur: 360ms;
+}
+
+/* ---------- Base overrides on DUDA canvas ---------- */
+[data-hlt-theme] body,
+body[data-hlt-theme] {
+  background: var(--hlt-bg);
+  color: var(--hlt-ink);
+  font-family: var(--hlt-font-body);
+}
+
+/* ---------- Display type ---------- */
+.hlt-display {
+  font-family: var(--hlt-font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  line-height: 0.95;
+  font-size: clamp(2.75rem, 8vw, 7rem);
+}
+
+.hlt-eyebrow {
+  font-size: 0.75rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--hlt-ink-dim);
+}
+
+/* ---------- Hero (VanMoof pattern) ---------- */
+.hlt-hero {
+  position: relative;
+  min-height: 92svh;
+  display: grid;
+  align-content: end;
+  padding: clamp(1.5rem, 5vw, 4rem);
+  overflow: hidden;
+  isolation: isolate;
+}
+.hlt-hero__media {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+.hlt-hero__media video,
+.hlt-hero__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* Continuous push toward the hoop — runs from frame one through the
+   whole headline sequence, layered over the footage's own camera move */
+.hlt-hero__media video {
+  animation: hlt-hero-push 13s linear forwards;
+  transform-origin: 50% 42%;
+  will-change: transform;
+}
+@keyframes hlt-hero-push {
+  from { transform: scale(1); }
+  to   { transform: scale(1.16); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hlt-hero__media video { animation: none; }
+}
+.hlt-hero__media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10,11,13,.25) 0%, rgba(10,11,13,.05) 45%, rgba(10,11,13,.92) 100%);
+}
+
+/* ---------- Stat trio (Resend pattern) ---------- */
+.hlt-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  border-block: 1px solid var(--hlt-line);
+}
+.hlt-stat {
+  padding: clamp(1.5rem, 3vw, 3rem);
+  border-inline-start: 1px solid var(--hlt-line);
+  display: flex;
+  flex-direction: column;
+}
+.hlt-stat:first-child { border-inline-start: 0; }
+.hlt-stat__label {
+  font-size: 0.8rem;
+  color: var(--hlt-ink-dim);
+  /* label takes the slack so every value sits on the same line
+     regardless of how many lines the label wraps to */
+  margin-bottom: auto;
+  padding-bottom: 0.75rem;
+}
+.hlt-stat__value {
+  font-family: var(--hlt-font-display);
+  font-size: clamp(2rem, 4.5vw, 3.5rem);
+  font-weight: 700;
+  color: var(--hlt-accent);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Program cards (Webflow/ClassPass pattern) ---------- */
+.hlt-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+.hlt-card {
+  background: var(--hlt-surface);
+  border: 1px solid var(--hlt-line);
+  border-radius: 14px;
+  overflow: hidden;
+  transition: transform var(--hlt-dur) var(--hlt-ease), border-color var(--hlt-dur) var(--hlt-ease);
+}
+.hlt-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+.hlt-card__tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--hlt-accent);
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  padding: 0.25em 0.9em;
+}
+
+/* ---------- Buttons ---------- */
+.hlt-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  font-family: var(--hlt-font-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.9em 1.8em;
+  border-radius: 999px;
+  background: var(--hlt-accent);
+  color: var(--hlt-accent-ink);
+  border: 0;
+  cursor: pointer;
+  transition: transform var(--hlt-dur) var(--hlt-ease), filter var(--hlt-dur) var(--hlt-ease);
+}
+.hlt-btn:hover { transform: translateY(-2px); filter: brightness(1.08); }
+.hlt-btn--ghost {
+  background: transparent;
+  color: var(--hlt-ink);
+  border: 1px solid var(--hlt-line);
+}
+
+/* ---------- Scroll entrance (JS adds .is-in) ---------- */
+[data-hlt-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 600ms var(--hlt-ease), transform 600ms var(--hlt-ease);
+}
+[data-hlt-reveal].is-in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-hlt-reveal] { opacity: 1; transform: none; transition: none; }
+  .hlt-card, .hlt-btn { transition: none; }
+}
+
+/* ============================================================
+   v0.2 — concept components (nav, marquee, duotone, quote,
+   paper section, forms, footer)
+   ============================================================ */
+
+/* ---------- Nav ---------- */
+.hlt-nav {
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 0.9rem clamp(1.25rem, 4vw, 2.5rem);
+  background: color-mix(in srgb, var(--hlt-bg) 82%, transparent);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--hlt-line);
+}
+.hlt-nav__logo img { height: 44px; width: auto; display: block; }
+.hlt-nav__links {
+  display: flex;
+  gap: 1.75rem;
+  margin-inline-start: auto;
+  align-items: center;
+}
+.hlt-nav__links a {
+  color: var(--hlt-ink-dim);
+  text-decoration: none;
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: color var(--hlt-dur) var(--hlt-ease);
+}
+.hlt-nav__links a:hover, .hlt-nav__links a[aria-current="page"] { color: var(--hlt-ink); }
+/* top nav bar links: bright white (footer reuse keeps the dimmer tone) */
+.hlt-nav .hlt-nav__links a { color: #ffffff; }
+/* nav links centered on the page; logo stays left-justified */
+.hlt-nav .hlt-nav__links {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  white-space: nowrap;
+}
+
+/* ---------- Marquee (alumni ticker) ---------- */
+.hlt-marquee {
+  overflow: hidden;
+  border-block: 1px solid var(--hlt-line);
+  padding-block: 1.1rem;
+  display: flex;
+}
+.hlt-marquee__track {
+  display: flex;
+  gap: 3rem;
+  flex-shrink: 0;
+  min-width: 100%;
+  justify-content: space-around;
+  align-items: baseline;
+  animation: hlt-marquee 32s linear infinite;
+  padding-inline-end: 3rem;
+}
+.hlt-marquee:hover .hlt-marquee__track { animation-play-state: paused; }
+.hlt-marquee__item {
+  font-family: var(--hlt-font-display);
+  font-size: 1.5rem;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  color: var(--hlt-ink);
+}
+.hlt-marquee__item small {
+  font-family: var(--hlt-font-body);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: var(--hlt-accent);
+  vertical-align: super;
+  margin-inline-start: 0.4em;
+}
+@keyframes hlt-marquee { to { transform: translateX(-100%); } }
+@media (prefers-reduced-motion: reduce) {
+  .hlt-marquee__track { animation: none; }
+}
+
+/* ---------- Duotone imagery ---------- */
+.hlt-duotone {
+  position: relative;
+  overflow: hidden;
+  border-radius: 14px;
+  isolation: isolate;
+}
+.hlt-duotone img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.05);
+}
+.hlt-duotone::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--hlt-blue);
+  mix-blend-mode: color;
+}
+.hlt-duotone--orange::after { background: var(--hlt-accent); }
+
+/* ---------- Serif pull-quote ---------- */
+.hlt-quote {
+  font-family: var(--hlt-font-serif);
+  font-style: italic;
+  font-size: clamp(1.35rem, 2.6vw, 2rem);
+  line-height: 1.35;
+  color: var(--hlt-ink);
+}
+.hlt-quote::before { content: '\201C'; color: var(--hlt-accent); }
+.hlt-quote::after { content: '\201D'; color: var(--hlt-accent); }
+
+/* ---------- Paper (light) section ---------- */
+.hlt-paper {
+  background: #fafaf8;
+  color: #211d1f;
+}
+.hlt-paper .hlt-eyebrow { color: #8a8689; }
+.hlt-paper .hlt-card {
+  background: #ffffff;
+  border-color: rgba(33, 29, 31, 0.1);
+}
+.hlt-paper .muted, .hlt-paper .hlt-stat__label { color: #6d6a6c; }
+
+/* ---------- Section rhythm ---------- */
+.hlt-section { padding-block: clamp(4rem, 9vw, 8rem); }
+.hlt-section--tight { padding-block: clamp(2.5rem, 5vw, 4rem); }
+
+/* ---------- Price row ---------- */
+.hlt-price {
+  font-family: var(--hlt-font-display);
+  font-size: 1.6rem;
+  color: var(--hlt-ink);
+}
+.hlt-price small { font-family: var(--hlt-font-body); font-size: 0.8rem; color: var(--hlt-ink-dim); }
+
+/* ---------- Feature list ---------- */
+.hlt-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.6rem; }
+.hlt-list li { display: flex; gap: 0.7em; align-items: baseline; font-size: 0.95rem; }
+.hlt-list li::before { content: '—'; color: var(--hlt-accent); flex-shrink: 0; }
+
+/* ---------- Form (Book page) ---------- */
+.hlt-field { display: grid; gap: 0.45rem; }
+.hlt-field label {
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--hlt-ink-dim);
+}
+.hlt-field input, .hlt-field select, .hlt-field textarea {
+  background: var(--hlt-surface);
+  border: 1px solid var(--hlt-line);
+  border-radius: 10px;
+  color: var(--hlt-ink);
+  font: inherit;
+  padding: 0.85em 1em;
+  transition: border-color var(--hlt-dur) var(--hlt-ease);
+}
+.hlt-field input:focus, .hlt-field select:focus, .hlt-field textarea:focus {
+  outline: none;
+  border-color: var(--hlt-accent);
+}
+
+/* ---------- Big footer wordmark ---------- */
+.hlt-footer { border-top: 1px solid var(--hlt-line); overflow: hidden; }
+.hlt-footer__wordmark {
+  text-align: center;
+  font-family: var(--hlt-font-display);
+  font-size: clamp(3rem, 11vw, 9rem);
+  line-height: 0.9;
+  text-transform: uppercase;
+  color: var(--hlt-surface-2);
+  white-space: nowrap;
+  user-select: none;
+}
+
+/* ============================================================
+   v0.3 — hero smoke-intro sequence
+   Brand wordmark condenses out of the fog, dissolves, then the
+   headline lines materialize in turn and persist.
+   ============================================================ */
+.hlt-smoke-brand {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  pointer-events: none;
+  opacity: 0;
+  animation: hlt-smoke-brand 6.6s ease-in-out forwards;
+}
+
+/* Higgsfield logo-build film overlay: white-on-dark footage screened
+   over the hero fog video, so the dark ground vanishes and only the
+   machine + emblem read. Plays once; final frame is empty dark. */
+.hlt-brand-video {
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%, -50%);
+  width: min(74%, 880px);
+  mix-blend-mode: screen;
+  pointer-events: none;
+  /* crush the film's near-black ground to true black so the screen
+     blend leaves no visible rectangle over the fog */
+  filter: contrast(1.18) brightness(0.92);
+  transition: opacity 1.2s var(--hlt-ease), visibility 0s 1.2s;
+}
+.hlt-brand-video.is-done { opacity: 0; visibility: hidden; }
+@keyframes hlt-smoke-brand {
+  0%   { opacity: 0; filter: blur(28px); letter-spacing: 0.18em; transform: scale(1.12); }
+  48%  { opacity: 1; filter: blur(0);    letter-spacing: 0.02em; transform: scale(1); }
+  68%  { opacity: 1; filter: blur(0); }
+  100% { opacity: 0; filter: blur(16px); transform: scale(1.03); }
+}
+
+/* "Constructed" line — reversed deconstruction: letters start scattered
+   in space (JS assigns per-letter --bx/--by/--br offsets) and converge
+   into position like a structure assembling. */
+/* hide the raw line from first paint until JS has split it into
+   individually-hidden letters — prevents a ghost flash before scripts
+   at the end of the document execute */
+[data-hlt-build] { opacity: 0; }
+[data-hlt-build].is-split { opacity: 1; }
+
+/* scroll-gated sequences: with zero delays, animations would start
+   running at first paint and be caught mid-flight when the end-of-body
+   script pauses them (a frozen ghost). Pause them at the stylesheet
+   level instead — the per-step JS sets inline animation-play-state:
+   running, which overrides this. Reduced-motion CSS (animation: none,
+   opacity: 1) is unaffected. */
+[data-hlt-scrollseq] .hlt-seq,
+[data-hlt-scrollseq] .hlt-build-letter,
+[data-hlt-scrollseq] .hlt-earn {
+  animation-play-state: paused;
+}
+.hlt-build-word { display: inline-block; white-space: nowrap; }
+.hlt-build-letter {
+  display: inline-block;
+  opacity: 0;
+  animation: hlt-build-in 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+@keyframes hlt-build-in {
+  0% {
+    opacity: 0;
+    transform: translate(var(--bx, 0), var(--by, -0.7em)) rotate(var(--br, 0deg)) scale(1.08);
+    filter: blur(7px);
+  }
+  55%  { opacity: 1; filter: blur(1px); }
+  82%  { transform: translate(0, 0.04em) rotate(0deg) scale(0.995); filter: blur(0); }
+  100% { opacity: 1; transform: none; filter: none; }
+}
+
+/* "Earn" emphasis — one flash, grows, returns to normal size.
+   will-change promotes the span to its own layer so the text scales as
+   a composited texture (no per-frame re-rasterization jitter); the curve
+   is a single smooth rise-and-fall with no intermediate waypoints. */
+.hlt-earn {
+  display: inline-block;
+  transform-origin: center bottom;
+  will-change: transform, filter;
+  backface-visibility: hidden;
+  animation: hlt-earn-pop 1.2s cubic-bezier(0.35, 0, 0.25, 1) forwards;
+}
+@keyframes hlt-earn-pop {
+  0%   { transform: scale(1);    filter: brightness(1); }
+  30%  { transform: scale(1.18); filter: brightness(2.2) saturate(0.45); }
+  100% { transform: scale(1);    filter: brightness(1); }
+}
+
+.hlt-seq {
+  display: inline-block;
+  opacity: 0;
+  animation: hlt-smoke-in 1.4s var(--hlt-ease) forwards;
+}
+@keyframes hlt-smoke-in {
+  from { opacity: 0; filter: blur(20px); transform: translateY(16px) scale(1.04); }
+  60%  { opacity: 1; }
+  to   { opacity: 1; filter: blur(0); transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hlt-smoke-brand { animation: none; opacity: 0; }
+  .hlt-seq, .hlt-build-letter { animation: none; opacity: 1; filter: none; transform: none; }
+  .hlt-earn { animation: none; transform: none; }
+}
+
+/* ============================================================
+   v0.4 — Film Room gallery: filter pills, masonry grid, lightbox
+   ============================================================ */
+.hlt-filters { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+.hlt-filter {
+  font: 600 0.78rem/1 var(--hlt-font-body);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--hlt-ink-dim);
+  background: transparent;
+  border: 1px solid var(--hlt-line);
+  border-radius: 999px;
+  padding: 0.65em 1.3em;
+  cursor: pointer;
+  transition: color var(--hlt-dur) var(--hlt-ease), border-color var(--hlt-dur) var(--hlt-ease);
+}
+.hlt-filter:hover { color: var(--hlt-ink); }
+.hlt-filter.is-active { color: var(--hlt-accent); border-color: var(--hlt-accent); }
+
+.hlt-gallery { columns: 3 280px; column-gap: 1rem; }
+.hlt-gallery__item {
+  break-inside: avoid;
+  margin-bottom: 1rem;
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: zoom-in;
+  background: var(--hlt-surface);
+}
+.hlt-gallery__item img, .hlt-gallery__item video {
+  display: block;
+  width: 100%;
+  transition: transform 600ms var(--hlt-ease), opacity var(--hlt-dur) var(--hlt-ease);
+}
+.hlt-gallery__item:hover img, .hlt-gallery__item:hover video { transform: scale(1.04); }
+.hlt-gallery__item.is-hidden { display: none; }
+.hlt-gallery__item .tag {
+  position: absolute;
+  left: 0.75rem;
+  bottom: 0.75rem;
+  font: 600 0.62rem/1 var(--hlt-font-body);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #fff;
+  background: rgba(22, 19, 26, 0.72);
+  backdrop-filter: blur(6px);
+  border-radius: 999px;
+  padding: 0.5em 1em;
+  pointer-events: none;
+}
+.hlt-gallery__item .play {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+.hlt-gallery__item .play::after {
+  content: '';
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: rgba(237, 74, 38, 0.92);
+  clip-path: none;
+  background-image: linear-gradient(0,transparent,transparent);
+}
+.hlt-gallery__item .play::before {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  width: 0; height: 0;
+  border-style: solid;
+  border-width: 10px 0 10px 17px;
+  border-color: transparent transparent transparent #fff;
+  translate: 3px 0;
+}
+
+.hlt-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: none;
+  place-items: center;
+  background: rgba(10, 8, 12, 0.94);
+  backdrop-filter: blur(8px);
+  padding: clamp(1rem, 4vw, 3rem);
+}
+.hlt-lightbox.is-open { display: grid; }
+.hlt-lightbox img, .hlt-lightbox video {
+  max-width: min(92vw, 1200px);
+  max-height: 84vh;
+  border-radius: 12px;
+}
+.hlt-lightbox__close, .hlt-lightbox__nav {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--hlt-line);
+  color: var(--hlt-ink);
+  border-radius: 50%;
+  width: 46px; height: 46px;
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: background var(--hlt-dur) var(--hlt-ease);
+}
+.hlt-lightbox__close:hover, .hlt-lightbox__nav:hover { background: rgba(237, 74, 38, 0.85); }
+.hlt-lightbox__close { top: 1.25rem; right: 1.25rem; }
+.hlt-lightbox__nav.prev { left: 1.25rem; top: 50%; translate: 0 -50%; }
+.hlt-lightbox__nav.next { right: 1.25rem; top: 50%; translate: 0 -50%; }
+
+
+/* anchor targets clear the sticky nav */
+section[id], header[id] { scroll-margin-top: 84px; }
+
+/* ============================================================
+   v0.7 — contact popover: materializes from the trigger point.
+   Fields assemble as scattered fragments (the site's signature
+   motion), backdrop fogs the page, orange pulse on landing.
+   ============================================================ */
+.hlt-contact { position: absolute; inset: 0; z-index: 120; }
+.hlt-contact[hidden] { display: none; }
+.hlt-contact__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 8, 12, 0.55);
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+  opacity: 0;
+  transition: opacity 0.45s var(--hlt-ease), backdrop-filter 0.45s var(--hlt-ease);
+}
+.hlt-contact.is-in .hlt-contact__backdrop {
+  opacity: 1;
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+}
+.hlt-contact__panel {
+  position: absolute;
+  width: min(94vw, 420px);
+  background: var(--hlt-surface);
+  border: 1px solid var(--hlt-line);
+  border-radius: 18px;
+  padding: 1.6rem;
+  display: grid;
+  gap: 0.95rem;
+  transform-origin: 50% 110%; /* grows up out of the trigger */
+  opacity: 0;
+}
+.hlt-contact.is-in .hlt-contact__panel {
+  animation: hlt-pop-in 0.55s var(--hlt-ease) forwards,
+             hlt-pop-pulse 0.9s var(--hlt-ease) 0.75s;
+}
+.hlt-contact.is-closing .hlt-contact__panel {
+  opacity: 1;
+  animation: hlt-pop-out 0.28s var(--hlt-ease) forwards;
+}
+.hlt-contact.is-closing .hlt-contact__backdrop { opacity: 0; backdrop-filter: blur(0); -webkit-backdrop-filter: blur(0); }
+@keyframes hlt-pop-in {
+  0%   { opacity: 0; transform: scale(0.82); filter: blur(12px); }
+  100% { opacity: 1; transform: scale(1); filter: none; }
+}
+@keyframes hlt-pop-out {
+  to { opacity: 0; transform: scale(0.9); filter: blur(10px); }
+}
+@keyframes hlt-pop-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(237, 74, 38, 0.55); }
+  100% { box-shadow: 0 0 0 22px rgba(237, 74, 38, 0); }
+}
+.hlt-contact__panel .frag { opacity: 0; }
+.hlt-contact.is-in .frag {
+  animation: hlt-frag-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+@keyframes hlt-frag-in {
+  0%   { opacity: 0; transform: translate(var(--fx, 0), var(--fy, 16px)) rotate(var(--fr, 0deg)); filter: blur(7px); }
+  60%  { opacity: 1; }
+  100% { opacity: 1; transform: none; filter: none; }
+}
+.hlt-contact__close {
+  position: absolute;
+  top: 0.8rem;
+  right: 0.8rem;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--hlt-line);
+  background: transparent;
+  color: var(--hlt-ink);
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+.hlt-contact__close:hover { background: var(--hlt-accent); border-color: var(--hlt-accent); }
+.hlt-contact__title {
+  font-family: var(--hlt-font-display);
+  font-size: 1.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+.hlt-contact__check {
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+  font-size: 0.9rem;
+  cursor: pointer;
+  user-select: none;
+}
+.hlt-contact__check input {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--hlt-line);
+  border-radius: 6px;
+  background: var(--hlt-bg);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: border-color var(--hlt-dur) var(--hlt-ease), background var(--hlt-dur) var(--hlt-ease);
+}
+.hlt-contact__check input:checked { background: var(--hlt-accent); border-color: var(--hlt-accent); }
+.hlt-contact__check input:checked::after {
+  content: '';
+  width: 10px; height: 6px;
+  border: 2px solid #fff;
+  border-top: 0; border-right: 0;
+  transform: rotate(-45deg) translateY(-1px);
+}
+/* inputs at 16px so iOS never zoom-jumps the keyboard */
+.hlt-contact__panel input, .hlt-contact__panel textarea { font-size: 16px; }
+.hlt-contact__sent {
+  text-align: center;
+  display: grid;
+  gap: 0.6rem;
+  padding: 1.5rem 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hlt-contact.is-in .hlt-contact__panel,
+  .hlt-contact.is-in .frag { animation: none; opacity: 1; }
+  .hlt-contact__backdrop { transition: none; }
+}
